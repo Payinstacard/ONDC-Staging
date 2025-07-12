@@ -23,12 +23,24 @@ app.post("/on_subscribe", function (req, res) {
   res.status(200).json(resp);
 });
 
+const htmlFile = `
+<!--Contents of ondc-site-verification.html. -->
+<html>
+  <head>
+    <meta name="ondc-site-verification" content="SIGNED_UNIQUE_REQ_ID" />
+  </head>
+  <body>
+    ONDC Site Verification Page
+  </body>
+</html>
+`;
+
 app.get("/ondc-site-verification.html", async (req, res) => {
   const requestId = generateRequestUUID();
   console.log("REQUEST ID", requestId);
   const signedContent = await signMessage(requestId, signedPrivateKey);
-  const modifiedHTML = subscribeOndcTemplate(signedContent);
-  console.log(modifiedHTML);
+  console.log(signedContent);
+  const modifiedHTML = htmlFile.replace(/SIGNED_UNIQUE_REQ_ID/g, signedContent);
   res.send(modifiedHTML);
 });
 
