@@ -37,7 +37,7 @@ const htmlFile = `
 `;
 
 app.get("/ondc-site-verification.html", async (req, res) => {
-  const requestId = uuidv4();
+  const requestId = "4de5b85c-9639-4460-ba62-faec8119e345";
   console.log("REQUEST ID", requestId);
   const signedContent = await signMessage(requestId, signedPrivateKey);
   console.log(signedContent);
