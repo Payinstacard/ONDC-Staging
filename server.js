@@ -14,8 +14,6 @@ app.use(morgan("dev"));
 app.get("/", (req, res) => res.send("Hello World!"));
 app.get("/health", (req, res) => res.send("Health OK!!"));
 
-const requestId = generateRequestUUID();
-
 app.post("/on_subscribe", function (req, res) {
   const { challenge } = req.body;
   console.log("ON SUBSCRIBE", challenge);
@@ -26,6 +24,8 @@ app.post("/on_subscribe", function (req, res) {
 });
 
 app.get("/ondc-site-verification.html", async (req, res) => {
+  const requestId = generateRequestUUID();
+  console.log("REQUEST ID", requestId);
   const signedContent = await signMessage(requestId, signedPrivateKey);
   const modifiedHTML = subscribeOndcTemplate(signedContent);
   console.log(modifiedHTML);
