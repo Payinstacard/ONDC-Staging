@@ -1,11 +1,7 @@
 require("dotenv/config.js");
 const signedPrivateKey = process.env.SIGNING_PRIVATE_KEY;
 const express = require("express");
-const {
-  generateRequestUUID,
-} = require("./utils/generate-random-unique-ids.js");
-const { signMessage, sharedKey } = require("./utils/ondc");
-const { subscribeOndcTemplate } = require("./templates/subscribe-ondc.js");
+const { signMessage, sharedKey } = require("./utils/ondc.js");
 const morgan = require("morgan");
 const app = express();
 const { v4: uuidv4 } = require("uuid");
@@ -37,7 +33,7 @@ const htmlFile = `
 `;
 
 app.get("/ondc-site-verification.html", async (req, res) => {
-  const requestId = "4de5b85c-9639-4460-ba62-faec8119e345";
+  const requestId = uuidv4();
   console.log("REQUEST ID", requestId);
   const signedContent = await signMessage(requestId, signedPrivateKey);
   console.log(signedContent);
