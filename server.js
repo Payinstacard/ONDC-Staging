@@ -8,6 +8,7 @@ const { signMessage, sharedKey } = require("./utils/ondc");
 const { subscribeOndcTemplate } = require("./templates/subscribe-ondc.js");
 const morgan = require("morgan");
 const app = express();
+const { v4: uuidv4 } = require("uuid");
 
 app.use(express.json());
 app.use(morgan("dev"));
@@ -36,7 +37,7 @@ const htmlFile = `
 `;
 
 app.get("/ondc-site-verification.html", async (req, res) => {
-  const requestId = generateRequestUUID();
+  const requestId = uuidv4();
   console.log("REQUEST ID", requestId);
   const signedContent = await signMessage(requestId, signedPrivateKey);
   console.log(signedContent);
