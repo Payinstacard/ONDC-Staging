@@ -6,9 +6,11 @@ const {
 } = require("./utils/generate-random-unique-ids.js");
 const { signMessage, sharedKey } = require("./utils/ondc");
 const { subscribeOndcTemplate } = require("./templates/subscribe-ondc.js");
+const morgan = require("morgan");
 const app = express();
 
 app.use(express.json());
+app.use(morgan("dev"));
 app.get("/", (req, res) => res.send("Hello World!"));
 app.get("/health", (req, res) => res.send("Health OK!!"));
 
