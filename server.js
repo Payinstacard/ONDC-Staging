@@ -28,6 +28,7 @@ app.post("/on_subscribe", function (req, res) {
 app.get("/ondc-site-verification.html", async (req, res) => {
   const signedContent = await signMessage(requestId, signedPrivateKey);
   const modifiedHTML = subscribeOndcTemplate(signedContent);
+  console.log(modifiedHTML);
   res.send(modifiedHTML);
 });
 
