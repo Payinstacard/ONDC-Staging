@@ -4,7 +4,6 @@ const express = require("express");
 const { signMessage, sharedKey, decryptAES256ECB } = require("./utils/ondc.js");
 const morgan = require("morgan");
 const app = express();
-const { v4: uuidv4 } = require("uuid");
 
 app.use(express.json());
 app.use(morgan("dev"));
@@ -33,7 +32,7 @@ const htmlFile = `
 `;
 
 app.get("/ondc-site-verification.html", async (req, res) => {
-  const requestId = "cc386042-01ce-42f5-b32d-5c5f7019f68e";
+  const requestId = "PAYINSTACARD22072025";
   console.log("REQUEST ID", requestId);
   const signedContent = await signMessage(requestId, signedPrivateKey);
   console.log(signedContent);
